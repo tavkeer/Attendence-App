@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -18,10 +16,10 @@ class ToDoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String per = "99%";
     return Padding(
-      padding: const EdgeInsets.only(left: 25.0, right: 25, top: 25),
+      padding: const EdgeInsets.only(left: 25.0, right: 25, top: 20),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: StretchMotion(),
+          motion: const StretchMotion(),
           children: [
             SlidableAction(
               onPressed: deleteFunction,
@@ -32,9 +30,9 @@ class ToDoTile extends StatelessWidget {
           ],
         ),
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: Colors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -43,12 +41,14 @@ class ToDoTile extends StatelessWidget {
               // task name
               Text(
                 taskName,
-                style: TextStyle(fontSize: 18),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               //percentage
               Text(
                 per,
-                style: TextStyle(fontSize: 18),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               )
             ],
           ),

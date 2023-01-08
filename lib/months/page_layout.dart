@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:attendence_app/data/database.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 
 class MonthsLayout extends StatefulWidget {
   final int indexofMonth;
@@ -15,13 +12,10 @@ class MonthsLayout extends StatefulWidget {
 }
 
 class _MonthsLayoutState extends State<MonthsLayout> {
-  final _month = Hive.box('cal');
   ToDoDataBase db = ToDoDataBase();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     db.loadattendence(widget.subName);
   }
 
@@ -33,12 +27,12 @@ class _MonthsLayoutState extends State<MonthsLayout> {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: GridView.builder(
               itemCount: ToDoDataBase()
                   .getMonthDays(widget.subName, widget.indexofMonth),
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 7),
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
@@ -48,7 +42,7 @@ class _MonthsLayoutState extends State<MonthsLayout> {
                     });
                   },
                   child: Padding(
-                    padding: EdgeInsets.all(3),
+                    padding: const EdgeInsets.all(3),
                     child: Container(
                       decoration: BoxDecoration(
                           color: (db.getColor(

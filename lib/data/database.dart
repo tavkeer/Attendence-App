@@ -125,57 +125,55 @@ class ToDoDataBase {
         {
           return 31;
         }
-        break;
       case 1:
         {
           return 28;
         }
-        break;
+
       case 2:
         {
           return 31;
         }
-        break;
+
       case 3:
         {
           return 30;
         }
-        break;
+
       case 4:
         {
           return 31;
         }
-        break;
+
       case 5:
         {
           return 30;
         }
-        break;
+
       case 6:
         {
           return 31;
         }
-        break;
+
       case 7:
         {
           return 31;
         }
-        break;
+
       case 8:
         {
           return 30;
         }
-        break;
+
       case 9:
         {
           return 31;
         }
-        break;
+
       case 10:
         {
           return 30;
         }
-        break;
     }
     return 31;
   }
@@ -186,58 +184,57 @@ class ToDoDataBase {
         {
           return "January";
         }
-        break;
+
       case 1:
         {
           return "Febuary";
         }
-        break;
+
       case 2:
         {
           return "March";
         }
-        break;
+
       case 3:
         {
           return "April";
         }
-        break;
 
       case 4:
         {
           return "May";
         }
-        break;
+
       case 5:
         {
           return "June";
         }
-        break;
+
       case 6:
         {
           return "July";
         }
-        break;
+
       case 7:
         {
           return "August";
         }
-        break;
+
       case 8:
         {
           return "September";
         }
-        break;
+
       case 9:
         {
           return "October";
         }
-        break;
+
       case 10:
         {
           return "November";
         }
-        break;
+
       case 11:
         {
           return "December";

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'pages/home_page.dart';
 
@@ -7,8 +8,8 @@ void main() async {
   await Hive.initFlutter();
 
   // open a box
-  var subjects = await Hive.openBox('subList');
-  var calender = await Hive.openBox('cal');
+  await Hive.openBox('subList');
+  await Hive.openBox('cal');
 
   runApp(const MyApp());
 }
@@ -19,9 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-      theme: ThemeData(primarySwatch: Colors.yellow),
-    );
+        debugShowCheckedModeBanner: false,
+        home: const HomePage(),
+        theme: ThemeData(
+            primarySwatch: Colors.grey,
+            fontFamily: GoogleFonts.montserrat().fontFamily));
   }
 }

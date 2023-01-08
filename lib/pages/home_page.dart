@@ -72,40 +72,54 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[200],
-
       //app bar
       appBar: AppBar(
-        title: Text('Subjects'),
+        title: Text(
+          'Subjects',
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
 
       //button for adding new subjects
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black.withOpacity(0.3),
         onPressed: createNewSubject,
         child: Icon(Icons.add),
       ),
 
       //list of subjects
-      body: ListView.builder(
-        itemCount: db.SubjectList.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CalenderPageView(
-                            subName: db.SubjectList[index],
-                          )));
-            },
-            child: ToDoTile(
-              taskName: db.SubjectList[index],
-              deleteFunction: (context) => deleteSubject(index),
-            ),
-          );
-        },
-      ),
+      body: Stack(children: [
+        Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          alignment: Alignment(0, 0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Image.asset("lib/assets/reading-book.png"),
+          ),
+        ),
+        ListView.builder(
+          itemCount: db.SubjectList.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CalenderPageView(
+                              subName: db.SubjectList[index],
+                            )));
+              },
+              child: ToDoTile(
+                taskName: db.SubjectList[index],
+                deleteFunction: (context) => deleteSubject(index),
+              ),
+            );
+          },
+        ),
+      ]),
     );
   }
 }
