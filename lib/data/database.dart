@@ -55,7 +55,7 @@ class ToDoDataBase {
     } else if (check[month][index][1] == -1) {
       return Colors.red.shade400;
     }
-    return Colors.white;
+    return Colors.black.withOpacity(0.05);
   }
 
   Map createMap() {
@@ -240,5 +240,48 @@ class ToDoDataBase {
           return "December";
         }
     }
+  }
+
+  //month attendence
+  getMonthAttendence(String sub, int month) {
+    Map check = _cal.get(sub);
+    int present = 0;
+    int absent = 0;
+    //check[month][index][1];
+    for (int i = 0; i < check[month].length; i++) {
+      if (check[month][i][1] == 1) {
+        present++;
+      } else if (check[month][i][1] == -1) {
+        absent++;
+      }
+    }
+    double persentage = present / (present + absent);
+    return persentage * 100;
+  }
+
+  getOverallAttendence(String sub) {
+    Map check = _cal.get(sub);
+    int present = 0;
+    int absent = 0;
+    //check[month][index][1];
+    for (int j = 0; j < 12; j++) {
+      for (int i = 0; i < check[j].length; i++) {
+        if (check[j][i][1] == 1) {
+          present++;
+        } else if (check[j][i][1] == -1) {
+          absent++;
+        }
+      }
+    }
+    double persentage = present / (present + absent);
+    return persentage * 100;
+  }
+
+  listOfSubjectPercentage() {
+    List listAttendence = [];
+    for (int i = 0; i < SubjectList.length; i++) {
+      listAttendence.add(getOverallAttendence(SubjectList[i]));
+    }
+    return listAttendence;
   }
 }

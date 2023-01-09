@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class ToDoTile extends StatelessWidget {
+class subjectTile extends StatelessWidget {
+  final percentage;
   final String taskName;
 
   Function(BuildContext)? deleteFunction;
 
-  ToDoTile({
+  subjectTile({
     super.key,
+    required this.percentage,
     required this.taskName,
     required this.deleteFunction,
   });
 
   @override
   Widget build(BuildContext context) {
-    String per = "99%";
     return Padding(
       padding: const EdgeInsets.only(left: 25.0, right: 25, top: 20),
       child: Slidable(
@@ -46,7 +47,7 @@ class ToDoTile extends StatelessWidget {
               ),
               //percentage
               Text(
-                per,
+                "${percentage.toStringAsFixed(2)} %",
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               )
