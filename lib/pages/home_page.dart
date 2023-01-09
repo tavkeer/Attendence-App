@@ -18,6 +18,9 @@ class _HomePageState extends State<HomePage> {
   // reference the hive box
   final _subject = Hive.box('subList');
 
+  //no data in hive
+  bool noData = true;
+
   //database object initialization
   ToDoDataBase db = ToDoDataBase();
 
@@ -28,12 +31,13 @@ class _HomePageState extends State<HomePage> {
     // if this is the 1st time ever openin the app, then create default data
     if (_subject.get("subList") == null) {
       db.createInitialData();
+      noData = true;
     } else {
       // there already exists data
       db.loadSubjectList();
+      subjectPercentage = db.listOfSubjectPercentage();
+      noData = false;
     }
-    subjectPercentage = db.listOfSubjectPercentage();
-
     super.initState();
   }
 
@@ -46,6 +50,7 @@ class _HomePageState extends State<HomePage> {
       db.SubjectList.add(_controller.text);
       db.updateDataBase(_controller.text);
       _controller.clear();
+      subjectPercentage = db.listOfSubjectPercentage();
     });
     Navigator.of(context).pop();
   }
@@ -62,6 +67,9 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+    setState(() {
+      noData = false;
+    });
   }
 
   // delete task
@@ -103,26 +111,45 @@ class _HomePageState extends State<HomePage> {
             child: Image.asset("lib/assets/reading-book.png"),
           ),
         ),
-        ListView.builder(
-          itemCount: db.SubjectList.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CalenderPageView(
-                              subName: db.SubjectList[index],
-                            )));
-              },
-              child: subjectTile(
-                percentage: subjectPercentage[index],
-                taskName: db.SubjectList[index],
-                deleteFunction: (context) => deleteSubject(index),
+        (noData)
+            ? Container(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                alignment: Alignment(0, -1),
+                child: Column(
+                  children: const [
+                    Icon(
+                      Icons.add_circle,
+                      size: 30,
+                    ),
+                    Text(
+                      "Add a New Subject",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : ListView.builder(
+                itemCount: db.SubjectList.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CalenderPageView(
+                                    subName: db.SubjectList[index],
+                                  )));
+                    },
+                    child: subjectTile(
+                      percentage: subjectPercentage[index],
+                      taskName: db.SubjectList[index],
+                      deleteFunction: (context) => deleteSubject(index),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ]),
     );
   }
