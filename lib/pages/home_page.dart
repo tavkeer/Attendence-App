@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:attendence_app/pages/calender_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -44,6 +42,91 @@ class _HomePageState extends State<HomePage> {
   // text controller
   final _controller = TextEditingController();
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //app bar
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Subjects',
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+
+      //button for adding new subjects
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black.withOpacity(0.3),
+        onPressed: createNewSubject,
+        child: const Icon(Icons.add),
+      ),
+
+      //list of subjects
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            alignment: const Alignment(0, 0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Image.asset(
+                "lib/assets/reading-book.png",
+              ),
+            ),
+          ),
+          (noData)
+              ? Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 40,
+                  ),
+                  alignment: const Alignment(0, -1),
+                  child: Column(
+                    children: const [
+                      Icon(
+                        Icons.add_circle,
+                        size: 30,
+                      ),
+                      Text(
+                        "Add a New Subject",
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: db.SubjectList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CalenderPageView(
+                              subName: db.SubjectList[index],
+                            ),
+                          ),
+                        );
+                      },
+                      child: SubjectTile(
+                        percentage: subjectPercentage[index],
+                        taskName: db.SubjectList[index],
+                        deleteFunction: (context) => deleteSubject(index),
+                      ),
+                    );
+                  },
+                ),
+        ],
+      ),
+    );
+  }
+
   // save new task
   void saveNewSubject() {
     setState(() {
@@ -78,79 +161,5 @@ class _HomePageState extends State<HomePage> {
       db.SubjectList.removeAt(index);
     });
     db.updateDataBase(_controller.text);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      //app bar
-      appBar: AppBar(
-        title: Text(
-          'Subjects',
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-
-      //button for adding new subjects
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black.withOpacity(0.3),
-        onPressed: createNewSubject,
-        child: Icon(Icons.add),
-      ),
-
-      //list of subjects
-      body: Stack(children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          alignment: Alignment(0, 0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Image.asset("lib/assets/reading-book.png"),
-          ),
-        ),
-        (noData)
-            ? Container(
-                padding: EdgeInsets.symmetric(vertical: 40),
-                alignment: Alignment(0, -1),
-                child: Column(
-                  children: const [
-                    Icon(
-                      Icons.add_circle,
-                      size: 30,
-                    ),
-                    Text(
-                      "Add a New Subject",
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : ListView.builder(
-                itemCount: db.SubjectList.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CalenderPageView(
-                                    subName: db.SubjectList[index],
-                                  )));
-                    },
-                    child: subjectTile(
-                      percentage: subjectPercentage[index],
-                      taskName: db.SubjectList[index],
-                      deleteFunction: (context) => deleteSubject(index),
-                    ),
-                  );
-                },
-              ),
-      ]),
-    );
   }
 }

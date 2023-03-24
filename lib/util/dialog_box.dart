@@ -4,10 +4,10 @@ import 'my_button.dart';
 
 class DialogBox extends StatelessWidget {
   final TextEditingController controller;
-  VoidCallback onSave;
-  VoidCallback onCancel;
+  final VoidCallback onSave;
+  final VoidCallback onCancel;
 
-  DialogBox({
+  const DialogBox({
     super.key,
     required this.controller,
     required this.onSave,
@@ -47,12 +47,12 @@ class DialogBox extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // save button
-                  myButton(text: "Save", onPressed: onSave),
+                  MyButton(text: "Save", onPressed: onSave),
 
                   const SizedBox(width: 8),
 
                   // cancel button
-                  myButton(text: "Cancel", onPressed: onCancel),
+                  MyButton(text: "Cancel", onPressed: onCancel),
                 ],
               ),
             ),

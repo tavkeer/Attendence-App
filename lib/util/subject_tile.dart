@@ -1,13 +1,15 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class subjectTile extends StatelessWidget {
+class SubjectTile extends StatelessWidget {
   final percentage;
   final String taskName;
 
-  Function(BuildContext)? deleteFunction;
+  final Function(BuildContext)? deleteFunction;
 
-  subjectTile({
+  const SubjectTile({
     super.key,
     required this.percentage,
     required this.taskName,

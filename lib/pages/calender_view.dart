@@ -13,15 +13,18 @@ class _CalenderPageViewState extends State<CalenderPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 225, 222, 222),
-        body: Center(
-            child: PageView.builder(
-                itemCount: 12,
-                itemBuilder: ((context, index) {
-                  return MonthsLayout(
-                    subName: widget.subName,
-                    indexofMonth: index,
-                  );
-                }))));
+      backgroundColor: const Color(0xFFE1DEDE),
+      body: Center(
+        child: PageView.builder(
+          itemCount: 12,
+          itemBuilder: ((context, index) {
+            return MonthsLayout(
+              subName: widget.subName,
+              indexofMonth: index,
+            );
+          }),
+        ),
+      ),
+    );
   }
 }

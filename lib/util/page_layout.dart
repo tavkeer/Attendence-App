@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables.prefer_const_constructors, prefer_const_constructors,prefer_const_literals_to_create_immutables
-
 import 'package:attendence_app/data/database.dart';
 import 'package:attendence_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -29,19 +27,24 @@ class _MonthsLayoutState extends State<MonthsLayout> {
         backgroundColor: Colors.black.withOpacity(0.05),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
           ),
           onPressed: () {
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
                 (route) => false);
           },
         ),
         title: Text(
           db.monthName(widget.indexofMonth),
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+          ),
         ),
       ),
       body: Column(
@@ -82,47 +85,62 @@ class _MonthsLayoutState extends State<MonthsLayout> {
             color: Colors.black,
           ),
           Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  children: [
-                    //present attendence
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                        children: [
-                          Text(
-                            'This Month :  ',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            "${db.getMonthAttendence(widget.subName, widget.indexofMonth).toStringAsFixed(2)} %",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              child: Column(
+                children: [
+                  //present attendence
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                        children: [
-                          const Text(
-                            'Overall :   ',
-                            style: TextStyle(fontSize: 18),
+                    child: Row(
+                      children: [
+                        const Text(
+                          'This Month :  ',
+                          style: TextStyle(
+                            fontSize: 18,
                           ),
-                          Text(
-                            "${db.getOverallAttendence(widget.subName).toStringAsFixed(2)} %",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "${db.getMonthAttendence(widget.subName, widget.indexofMonth).toStringAsFixed(2)} %",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                    ),
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Overall :   ',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        Text(
+                          "${db.getOverallAttendence(widget.subName).toStringAsFixed(2)} %",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
